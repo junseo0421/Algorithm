@@ -1,26 +1,26 @@
 import sys
 import math
 
-def is_prime(n):
-    if n < 2:
-        return False
-    elif n == 2:
-        return True
-    elif n % 2 == 0:
-        return n == 2
-    elif n % 3 == 0:
-        return n == 3
-    f = 5
-    r = math.isqrt(n)
-    while f <= r:
-        if n % f == 0 or n % (f + 2) == 0:
-            return False
-        f += 6
-    return True
-
-
 m, n = map(int, sys.stdin.readline().split())
 
-for i in range(m, n+1):
-    if is_prime(i):
-        print(i)
+is_comp = [False] * (n+1)
+
+if n >= 0:
+    is_comp[0] = True
+if n >= 1:
+    is_comp[1] = True
+
+limit = math.isqrt(n)
+
+for p in range(2, limit+1):
+    if not is_comp[p]:
+        start = p * p
+        step = p
+        is_comp[start:n+1:step] = [True] * ((n - start) // step + 1)
+
+result = []
+for x in range(m, n+1):
+    if not is_comp[x]:
+        result.append(str(x))
+
+sys.stdout.write('\n'.join(result))
