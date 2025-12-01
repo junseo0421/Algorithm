@@ -1,8 +1,6 @@
 import sys
 input = sys.stdin.readline
 
-from collections import deque  # BFS
-
 N = int(input())
 K = int(input())
 
@@ -14,14 +12,14 @@ for _ in range(K):
     graph[b] += [a]
 
 visited = [0] * (N+1)
-visited[1] = 1
-Q = deque([1])
 
-while Q:
-    c = Q.popleft()
-    for num in graph[c]:
+def dfs(n):
+    visited[n] = 1
+    for num in graph[n]:
         if visited[num] == 0:
-            Q.append(num)
             visited[num] = 1
+            dfs(num)
+
+dfs(1)
 
 print(sum(visited) - 1)
