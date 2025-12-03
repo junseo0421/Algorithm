@@ -16,14 +16,11 @@ for _ in range(M):
 
 # dfs
 def dfs(v):
-    if visited[v] == 0:
-        visited[v] = 1
-        visited_lst.append(v)
+    visited[v] = 1
+    visited_lst.append(v)
 
     for i in sorted(graph[v]):
         if visited[i] == 0:
-            visited_lst.append(i)
-            visited[i] = 1
             dfs(i)
 
 # bfs
@@ -31,11 +28,11 @@ def bfs(v):
     q = deque()
     q.append(v)
 
+    visited_lst.append(v)
+    visited[v] = 1
+
     while q:
         num = q.popleft()
-        if visited[num] == 0:
-            visited_lst.append(num)
-            visited[num] = 1
 
         for i in sorted(graph[num]):
             if visited[i] == 0:
