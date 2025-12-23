@@ -16,11 +16,17 @@ visited = [0] * length * (N+2)
 
 ans = 0
 
+mxn = max(paper)
+
 def back(n, temp, lst):  # 깊이, 더해질 숫자, index list
     global ans
 
     if n == 4:
         ans = max(ans, temp)
+        return
+
+    # 가지치기
+    if temp + (4-n) * mxn <= ans:
         return
 
     for idx in lst:
