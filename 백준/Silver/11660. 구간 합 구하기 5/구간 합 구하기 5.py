@@ -17,4 +17,3 @@ for _ in range(M):
     result = presum[x2][y2] - presum[x2][y1-1] - presum[x1-1][y2] + presum[x1-1][y1-1]
 
     sys.stdout.write(str(result) + '\n')
-
