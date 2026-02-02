@@ -7,8 +7,9 @@ N, K = map(int, input().split())
 MAX = 100000
 
 def bfs(n, k):
-    dist = {}  # x까지 가는 최단 거리
-    ways = {}  # 일반적인 bfs랑은 다르게 도달했던 노드도 전부 돌아야하기 때문에 방법의 수를 따로 두었음
+    # 딕셔너리에서의 in 비용보다 list에서의 index로 처리하는 것이 더 빠름
+    dist = [-1] * (MAX+1)
+    ways = [0] * (MAX+1)
 
     q = deque([n])
     dist[n] = 0
@@ -17,12 +18,16 @@ def bfs(n, k):
     while q:
         num = q.popleft()
 
+        # k의 최단 거리가 확정된 뒤, 그보다 깊은 level은 볼 필요 없으므로 break
+        if dist[k] != -1 and dist[num] > dist[k]:
+            break
+
         if num > k:
             minus = num - 1
             if not 0 <= minus <= MAX:
                 continue
 
-            if minus not in dist:
+            if dist[minus] == -1:
                 dist[minus] = dist[num] + 1
                 ways[minus] = ways[num]
                 q.append(minus)
@@ -34,14 +39,13 @@ def bfs(n, k):
                 if not 0 <= i <= MAX:
                     continue
 
-                if i not in dist:
+                if dist[i] == -1:
                     dist[i] = dist[num] + 1
                     ways[i] = ways[num]
                     q.append(i)
                 elif dist[i] == dist[num] + 1:
                     ways[i] += ways[num]
 
-    sys.stdout.write(str(dist[k]) + '\n')
-    sys.stdout.write(str(ways[k]))
+    sys.stdout.write(str(dist[k]) + '\n' + str(ways[k]))
 
 bfs(N, K)
