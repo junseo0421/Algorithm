@@ -53,6 +53,9 @@ while True:
                     min_d = min(min_d, visited[nx][ny])
                     if visited[nx][ny] == min_d:
                         eat_lst.append((nx, ny))
+                        
+        if visited[x][y] > min_d:
+            break
 
     # 종료 조건
     if not eat_lst:
