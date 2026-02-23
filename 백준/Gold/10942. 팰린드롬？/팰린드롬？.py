@@ -3,6 +3,8 @@ input = sys.stdin.readline
 
 # 팰린드롬: 앞으로 읽으나 뒤로 읽으나 같은 단어, 문장, 숫자, 문자열
 
+# 길이 기준으로 2D 를 채우거나 dp[l][r] 2d matrix 생성
+
 N = int(input())
 num_lst = list(map(int, input().split()))
 M = int(input())
