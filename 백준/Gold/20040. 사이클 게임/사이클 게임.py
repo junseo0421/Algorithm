@@ -5,7 +5,7 @@ n, m = map(int, input().split())
 
 def find_parent(x):
     if parent[x] != x:
-        return find_parent(parent[x])
+        parent[x] = find_parent(parent[x])
     return parent[x]
 
 def union_parent(a, b):
