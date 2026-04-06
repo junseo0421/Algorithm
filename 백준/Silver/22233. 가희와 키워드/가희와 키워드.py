@@ -9,9 +9,7 @@ for _ in range(N):
     q.add(input().rstrip())
 
 for _ in range(M):
-    lst = list(input().rstrip().split(','))
-    for k in lst:
-        if k in q:
-            q.remove(k)
+    use = set(input().rstrip().split(','))
+    q -= use
 
     print(len(q))
