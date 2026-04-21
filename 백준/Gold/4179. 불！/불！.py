@@ -8,7 +8,7 @@ from collections import deque
 
 R, C = map(int, input().split())
 map_lst = [input().rstrip() for _ in range(R)]
-depth = [[[-1] * C for _ in range(R+1)] for _ in range(2)]  # fire(0: fire, 1: ji), x, y
+depth = [[[-1] * C for _ in range(R)] for _ in range(2)]  # fire(0: fire, 1: ji), x, y
 
 dx = (0, 0, 1, -1)
 dy = (1, -1, 0, 0)
