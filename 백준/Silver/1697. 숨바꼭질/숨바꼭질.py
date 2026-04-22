@@ -3,25 +3,31 @@ input = sys.stdin.readline
 
 from collections import deque
 
+MAX_N = 100000
+
 N, K = map(int, input().split())
+visited = [-1] * (MAX_N + 1)
 
 q = deque([N])
+visited[N] = 0
 
-cnt_dict = {N: 0}
+if N > K:
+    print(N - K)
+    exit()
 
 while q:
     num = q.popleft()
 
     if num == K:
-        print(cnt_dict[num])
+        print(visited[num])
         break
-        
+
     if num > K:
-        if num-1 not in cnt_dict:
-            cnt_dict[num-1] = cnt_dict[num] + 1
-            q.append(num-1)
+        if 0 <= (num - 1) <= MAX_N and visited[num - 1] == -1:
+            visited[num - 1] = visited[num] + 1
+            q.append(num - 1)
     else:
-        for i in (num-1, num+1, num*2):
-            if i not in cnt_dict:
-                cnt_dict[i] = cnt_dict[num] + 1
-                q.append(i)
+        for n in (num+1, num-1, num*2):
+            if 0 <= n <= MAX_N and visited[n] == -1:
+                visited[n] = visited[num] + 1
+                q.append(n)
