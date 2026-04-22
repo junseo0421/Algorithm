@@ -3,32 +3,36 @@ input = sys.stdin.readline
 
 from collections import deque
 
-# bfs 가 가장 빠를 듯?
+MAX_N = 100000
 
 N, K = map(int, input().split())
+visited = [-1] * (MAX_N + 1)
 
 q = deque([N])
+visited[N] = 0
 
-cnt_dict = {}
-cnt_dict[N] = 0
+if N > K:
+    print(N - K)
+    exit()
 
 while q:
     num = q.popleft()
 
     if num == K:
-        sys.stdout.write(str(cnt_dict[num]))
+        print(visited[num])
         break
 
     if num > K:
-        if num-1 not in cnt_dict:
-            cnt_dict[num-1] = cnt_dict[num] + 1
-            q.append(num-1)
+        if 0 <= (num - 1) <= MAX_N and visited[num - 1] == -1:
+            visited[num - 1] = visited[num] + 1
+            q.append(num - 1)
     else:
-        for i, x in enumerate((num*2, num-1, num+1)):
-            if x not in cnt_dict:
-                if i == 0:
-                    cnt_dict[x] = cnt_dict[num]
-                else:
-                    cnt_dict[x] = cnt_dict[num] + 1
-                q.append(x)
+        nx = num * 2
+        if 0 <= nx <= MAX_N and (visited[nx] == -1 or visited[nx] > visited[num]):
+            visited[nx] = visited[num]
+            q.appendleft(nx)
 
+        for n in (num+1, num-1):
+            if 0 <= n <= MAX_N and visited[n] == -1:
+                visited[n] = visited[num] + 1
+                q.append(n)
