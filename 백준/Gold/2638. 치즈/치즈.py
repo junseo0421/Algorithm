@@ -49,7 +49,7 @@ result = 0
 while cheeses:
     outside(cheese_map)
 
-    melt = []
+    new_cheeses = []
 
     for x, y in cheeses:
         cnt = 0
@@ -65,11 +65,11 @@ while cheeses:
                 cnt += 1
 
         if cnt >= 2:
-            melt.append((x, y))
             cheese_map[x][y] = 0
+        else:
+            new_cheeses.append((x, y))
 
-    cheeses = [pos for pos in cheeses if pos not in melt]
-
+    cheeses = new_cheeses
     result += 1
 
 sys.stdout.write(str(result))
